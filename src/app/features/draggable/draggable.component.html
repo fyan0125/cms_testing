@@ -1,0 +1,13 @@
+<div #sortableList class="custom-grid">
+  @for (item of sortList(); track item.id) {
+  <div class="grid-item" [style]="{'grid-column': 'span ' + item.width, 'grid-row': 'span ' + item.height}">
+    <div class="handle">
+      <i class="pi pi-arrows-alt"></i>
+      {{item.id}}{{item.name}}
+    </div>
+    <div class="preview w-full h-full">
+    </div>
+    <div class="resize-handle" (mousedown)="onResizeStart($event, item)"></div>
+  </div>
+  }
+</div>

@@ -1,0 +1,46 @@
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12欄，每欄均分 */
+  grid-gap: 10px; /* 網格間隙 */
+  grid-auto-rows: 100px; /* 每行高度 100px */
+
+  .grid-item {
+    position: relative;
+    background-color: lightblue;
+    border-radius: 20px;
+    padding: 15px 30px;
+
+    &.resizing {
+      background-color: #3498db;
+    }
+
+    .handle {
+      cursor: grab;
+    }
+
+    .preview {
+      width: 100%;
+    }
+
+    .btn-confirm {
+      display: none;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+
+    &.resizing .btn-confirm {
+      display: block;
+    }
+
+    .resize-handle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      cursor: nw-resize;
+      overflow: hidden;
+    }
+  }
+}

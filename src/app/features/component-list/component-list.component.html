@@ -1,0 +1,5 @@
+<ul>
+  @for (item of componentList; track $index) {
+  <li>{{item.name}} <button (click)="addItem(item)">新增</button></li>
+  }
+</ul>
