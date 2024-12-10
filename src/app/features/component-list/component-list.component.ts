@@ -45,7 +45,7 @@ export class ComponentListComponent {
     {
       name: '文章',
       defaultWidth: 6,
-      defaultHeight: 13,
+      defaultHeight: 14,
       autoHeight: false,
     },
     {
