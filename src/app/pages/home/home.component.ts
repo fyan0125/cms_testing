@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import {
-  component,
+  componentSet,
   ComponentListComponent,
 } from '../../features/component-list/component-list.component';
 import { DraggableComponent } from '../../features/draggable/draggable.component';
@@ -14,14 +14,15 @@ import { DraggableComponent } from '../../features/draggable/draggable.component
   imports: [ComponentListComponent, DraggableComponent],
 })
 export class HomeComponent {
-  componentList: component[] = [];
+  nextId = 0;
+  componentList: componentSet[] = [];
   result: string = '';
 
-  addItem(item: component) {
-    this.componentList.push({ id: this.componentList.length, ...item });
+  addItem(item: componentSet) {
+    this.componentList.push({ id: this.nextId++, ...item });
   }
 
-  getResult(e: component[]) {
+  getResult(e: componentSet[]) {
     this.result = JSON.stringify(e);
   }
 }

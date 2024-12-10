@@ -1,10 +1,17 @@
 import { Component, output } from '@angular/core';
 
-export interface component {
-  id?: number;
+export interface componentBase {
   name: string;
+  defaultWidth: number;
+  defaultHeight: number;
+  autoHeight: boolean;
+}
+
+export interface componentSet extends componentBase {
+  id?: number;
   width: number;
   height: number;
+  data?: any[];
 }
 
 @Component({
@@ -14,27 +21,46 @@ export interface component {
   standalone: true,
 })
 export class ComponentListComponent {
-  add = output<component>();
+  add = output<componentSet>();
 
-  componentList: component[] = [
+  componentList: componentBase[] = [
     {
       name: '跑馬燈',
-      width: 12,
-      height: 1,
+      defaultWidth: 12,
+      defaultHeight: 3,
+      autoHeight: false,
+    },
+    {
+      name: '標題',
+      defaultWidth: 12,
+      defaultHeight: 3,
+      autoHeight: false,
+    },
+    {
+      name: '副標題',
+      defaultWidth: 12,
+      defaultHeight: 2,
+      autoHeight: false,
     },
     {
       name: '文章',
-      width: 6,
-      height: 1,
+      defaultWidth: 6,
+      defaultHeight: 4,
+      autoHeight: false,
     },
     {
       name: '圖片',
-      width: 12,
-      height: 1,
+      defaultWidth: 12,
+      defaultHeight: 4,
+      autoHeight: false,
     },
   ];
 
-  addItem(item: component) {
-    this.add.emit(item);
+  addItem(item: componentBase) {
+    this.add.emit({
+      ...item,
+      width: item.defaultWidth,
+      height: item.defaultHeight,
+    });
   }
 }

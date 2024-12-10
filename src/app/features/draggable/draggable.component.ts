@@ -12,7 +12,7 @@ import {
 import { CommonModule } from '@angular/common';
 import Sortable from 'sortablejs';
 
-import { component } from '../../features/component-list/component-list.component';
+import { componentSet } from '../../features/component-list/component-list.component';
 
 @Component({
   selector: 'app-draggable',
@@ -23,15 +23,15 @@ import { component } from '../../features/component-list/component-list.componen
 })
 export class DraggableComponent implements OnInit {
   @ViewChild('sortableList', { static: true }) sortableList!: ElementRef;
-  componentList = input.required<component[]>();
-  sortList = signal<component[]>([]);
-  resizingItem: component | null = null;
+  componentList = input.required<componentSet[]>();
+  sortList = signal<componentSet[]>([]);
+  resizingItem: componentSet | null = null;
   startY: number = 0;
   startX: number = 0;
   startWidth: number = 0;
   widthOptions = [12, 6, 4];
 
-  result = output<component[]>();
+  result = output<componentSet[]>();
 
   constructor() {
     this.onResizing = this.onResizing.bind(this);
@@ -62,7 +62,8 @@ export class DraggableComponent implements OnInit {
     });
   }
 
-  onResizeStart(event: MouseEvent, item: component) {
+  onResizeStart(event: MouseEvent, item: componentSet) {
+    event.preventDefault();
     this.onResizeEnd();
     this.resizingItem = item;
     this.startY = event.clientY;
@@ -79,14 +80,15 @@ export class DraggableComponent implements OnInit {
   }
 
   onResizing(event: MouseEvent) {
+    event.preventDefault();
     if (this.resizingItem) {
       const deltaY = event.clientY - this.startY;
       const deltaX = event.clientX - this.startX;
 
-      const gridHeight = 100;
-      const newRows = Math.min(
-        10,
-        Math.max(1, this.resizingItem.height + Math.round(deltaY / gridHeight))
+      const gridHeight = 10;
+      const newRows = Math.max(
+        this.resizingItem.defaultHeight,
+        this.resizingItem.height + Math.round(deltaY / gridHeight)
       );
 
       const gridWidth = window.innerWidth / 12;
