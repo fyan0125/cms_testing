@@ -42,13 +42,13 @@ export class ComponentListComponent {
     {
       name: '副標題',
       defaultWidth: 12,
-      defaultHeight: 2,
+      defaultHeight: 3,
       autoHeight: false,
     },
     {
       name: '文章',
       defaultWidth: 6,
-      defaultHeight: 4,
+      defaultHeight: 14,
       autoHeight: false,
     },
     {

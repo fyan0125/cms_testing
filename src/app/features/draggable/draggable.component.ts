@@ -14,6 +14,7 @@ import Sortable from 'sortablejs';
 import { FormsModule } from '@angular/forms';
 
 import { componentSet } from '../../features/component-list/component-list.component';
+import { TinymceEditorComponent } from "../tinymce-editor/tinymce-editor.component";
 import { TitleComponent } from '../title/title.component';
 
 import { SelectButton } from 'primeng/selectbutton';
@@ -23,7 +24,7 @@ import { SelectButton } from 'primeng/selectbutton';
   templateUrl: './draggable.component.html',
   styleUrl: './draggable.component.scss',
   standalone: true,
-  imports: [CommonModule, FormsModule, TitleComponent, SelectButton],
+  imports: [CommonModule, TinymceEditorComponent, FormsModule, TitleComponent, SelectButton],
 })
 export class DraggableComponent implements OnInit {
   @ViewChild('sortableList', { static: true }) sortableList!: ElementRef;
@@ -139,6 +140,10 @@ export class DraggableComponent implements OnInit {
 
     window.removeEventListener('mousemove', this.onResizing, true);
     window.removeEventListener('mouseup', this.onResizeEnd, true);
+  }
+
+  onEditorHeightChange(item: componentSet, newHeight: number): void {
+    item.height = newHeight + 6;
   }
 
   updateData(item: componentSet, event: any) {
