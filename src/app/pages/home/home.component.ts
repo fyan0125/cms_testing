@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import {
   componentSet,
@@ -11,7 +12,7 @@ import { DraggableComponent } from '../../features/draggable/draggable.component
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [ComponentListComponent, DraggableComponent],
+  imports: [CommonModule, ComponentListComponent, DraggableComponent],
 })
 export class HomeComponent {
   nextId = 0;
@@ -20,17 +21,11 @@ export class HomeComponent {
 
   addItem(item: componentSet) {
     this.componentList.push({ id: this.nextId++, ...item });
-    this.getResult(this.componentList);
   }
 
   remove(e: componentSet) {
     this.componentList = this.componentList.filter(
       (component) => component.id != e.id
     );
-  }
-
-  getResult(e: componentSet[]) {
-    this.componentList = e;
-    this.result = JSON.stringify(e);
   }
 }
