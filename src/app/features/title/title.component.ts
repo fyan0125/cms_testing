@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ColorPicker } from 'primeng/colorpicker';
 
@@ -14,7 +15,7 @@ export interface title {
   templateUrl: './title.component.html',
   styleUrl: './title.component.scss',
   standalone: true,
-  imports: [FormsModule, ButtonModule, ColorPicker],
+  imports: [FormsModule, InputTextModule, ButtonModule, ColorPicker],
 })
 export class TitleComponent {
   mode = input.required<'layout' | 'content' | 'preview'>();
