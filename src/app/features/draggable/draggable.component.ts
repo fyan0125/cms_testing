@@ -13,13 +13,14 @@ import { CommonModule } from '@angular/common';
 import Sortable from 'sortablejs';
 
 import { componentSet } from '../../features/component-list/component-list.component';
+import { TinymceEditorComponent } from "../tinymce-editor/tinymce-editor.component";
 
 @Component({
   selector: 'app-draggable',
   templateUrl: './draggable.component.html',
   styleUrl: './draggable.component.scss',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TinymceEditorComponent],
 })
 export class DraggableComponent implements OnInit {
   @ViewChild('sortableList', { static: true }) sortableList!: ElementRef;
@@ -115,5 +116,9 @@ export class DraggableComponent implements OnInit {
 
     window.removeEventListener('mousemove', this.onResizing, true);
     window.removeEventListener('mouseup', this.onResizeEnd, true);
+  }
+
+  onEditorHeightChange(item: componentSet, newHeight: number): void {
+    item.height = newHeight + 6;
   }
 }

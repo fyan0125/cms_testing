@@ -4,9 +4,13 @@
     <div class="handle">
       <i class="pi pi-arrows-alt"></i>
       {{item.id}}{{item.name}}
+      @if (item.name === "文章") {
+        <app-tinymce-editor
+        [gridItem]="item"
+        (heightChange)="onEditorHeightChange(item, $event)"
+      ></app-tinymce-editor>      }
     </div>
-    <div class="preview w-full h-full">
-    </div>
+
     <div class="resize-handle" (mousedown)="onResizeStart($event, item)"></div>
   </div>
   }
