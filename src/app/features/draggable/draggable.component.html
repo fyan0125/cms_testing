@@ -12,6 +12,9 @@
     @else if (item.name === "文章") {
     <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event) " [mode]="mode"  (remove)="remove.emit(item)"></app-tinymce-editor>
     }
+    @else if(item.name === '圖片'){
+    <app-image [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-image>
+    }
     @else {
     <div class="flex justify-content-between" [style]="{'cursor': mode ? 'grab': 'default'}">
       <i class="pi pi-arrows-alt">{{item.id}}{{item.name}}</i>
@@ -22,7 +25,7 @@
     }
 
     <!-- 調整大小 -->
-    @if (mode=='layout') {
+    @if (mode=='layout' && !item.autoHeight) {
     <div class="resize-handle" (mousedown)="onResizeStart($event, item)"></div>
     }
   </div>

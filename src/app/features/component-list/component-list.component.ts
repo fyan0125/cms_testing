@@ -49,12 +49,12 @@ export class ComponentListComponent {
       name: '文章',
       defaultWidth: 6,
       defaultHeight: 14,
-      autoHeight: false,
+      autoHeight: true,
     },
     {
       name: '圖片',
       defaultWidth: 12,
-      defaultHeight: 4,
+      defaultHeight: 10,
       autoHeight: false,
     },
   ];
