@@ -1,13 +1,27 @@
-<div #sortableList class="custom-grid">
+<p-selectbutton [options]="modeOption" [(ngModel)]="mode" [allowEmpty]="false" optionLabel="name" optionValue="value"
+  (onChange)="sortable?.option('sort', mode == 'layout');" />
+
+<div #sortableList class="custom-grid mt-5">
   @for (item of sortList(); track item.id) {
-  <div class="grid-item" [style]="{'grid-column': 'span ' + item.width, 'grid-row': 'span ' + item.height}">
-    <div class="handle">
-      <i class="pi pi-arrows-alt"></i>
-      {{item.id}}{{item.name}}
+  <div class="grid-item" [class]="mode!='preview' ? 'editing': ''"
+    [style]="{'grid-column': 'span ' + item.width, 'grid-row': 'span ' + item.height, 'cursor': mode == 'layout' ? 'grab': 'default'}">
+
+    @if (item.name=='標題') {
+    <app-title [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-title>
+    }
+    @else {
+    <div class="flex justify-content-between" [style]="{'cursor': mode ? 'grab': 'default'}">
+      <i class="pi pi-arrows-alt">{{item.id}}{{item.name}}</i>
+      <button (click)="remove.emit(item)">移除</button>
     </div>
     <div class="preview w-full h-full">
     </div>
+    }
+
+    // 調整大小
+    @if (mode=='layout') {
     <div class="resize-handle" (mousedown)="onResizeStart($event, item)"></div>
+    }
   </div>
   }
 </div>

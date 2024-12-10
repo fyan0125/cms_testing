@@ -20,9 +20,17 @@ export class HomeComponent {
 
   addItem(item: componentSet) {
     this.componentList.push({ id: this.nextId++, ...item });
+    this.getResult(this.componentList);
+  }
+
+  remove(e: componentSet) {
+    this.componentList = this.componentList.filter(
+      (component) => component.id != e.id
+    );
   }
 
   getResult(e: componentSet[]) {
+    this.componentList = e;
     this.result = JSON.stringify(e);
   }
 }

@@ -3,5 +3,6 @@
         <app-component-list class="col-2" (add)="addItem($event)"></app-component-list>
         {{result}}
     </div>
-    <app-draggable class="col-10" [componentList]="componentList" (result)="getResult($event)"></app-draggable>
+    <app-draggable class="col-10" [componentList]="componentList" (result)="getResult($event)"
+        (remove)="remove($event)"></app-draggable>
 </div>
