@@ -10,7 +10,7 @@
     <app-title [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-title>
     }
     @else if (item.name === "文章") {
-    <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event)"></app-tinymce-editor>
+    <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event) " [mode]="mode"  (remove)="remove.emit(item)"></app-tinymce-editor>
     }
     @else {
     <div class="flex justify-content-between" [style]="{'cursor': mode ? 'grab': 'default'}">

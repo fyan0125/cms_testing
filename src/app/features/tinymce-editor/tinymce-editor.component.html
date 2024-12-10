@@ -1,3 +1,16 @@
-<editor
-  [init]="init"
-></editor>
+    <!-- Layout 模式 -->
+    @if (mode() === 'layout') {
+      <p-button icon="pi pi-trash" class="mr-2" (click)="remove.emit()"></p-button>
+      <div class="text-xl" [innerHTML]="getRenderedContent() || '(內容空白)'"></div>
+    }
+  
+    <editor
+      [init]="init"
+      [class.hidden]="mode() !== 'content'"
+    ></editor>
+  
+    <!-- Preview 模式 -->
+    @if (mode() === 'preview') {
+        <div class="text-xl" [innerHTML]="getRenderedContent() || '(內容空白)'"></div>
+
+    }
