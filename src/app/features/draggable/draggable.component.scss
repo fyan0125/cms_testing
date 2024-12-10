@@ -1,3 +1,6 @@
+button.active {
+  background-color: lightblue;
+}
 .custom-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -6,16 +9,14 @@
 
   .grid-item {
     position: relative;
-    background-color: lightblue;
     border-radius: 20px;
-    padding: 15px 30px;
+
+    &.editing {
+      border: lightblue 2px dashed;
+    }
 
     &.resizing {
       background-color: #3498db;
-    }
-
-    .handle {
-      cursor: grab;
     }
 
     .preview {

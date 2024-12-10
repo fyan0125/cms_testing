@@ -11,28 +11,51 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Sortable from 'sortablejs';
+import { FormsModule } from '@angular/forms';
 
 import { componentSet } from '../../features/component-list/component-list.component';
 import { TinymceEditorComponent } from "../tinymce-editor/tinymce-editor.component";
+import { TitleComponent } from '../title/title.component';
+
+import { SelectButton } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-draggable',
   templateUrl: './draggable.component.html',
   styleUrl: './draggable.component.scss',
   standalone: true,
-  imports: [CommonModule, TinymceEditorComponent],
+  imports: [CommonModule, TinymceEditorComponent, FormsModule, TitleComponent, SelectButton],
 })
 export class DraggableComponent implements OnInit {
   @ViewChild('sortableList', { static: true }) sortableList!: ElementRef;
   componentList = input.required<componentSet[]>();
+  result = output<componentSet[]>();
+  remove = output<componentSet>();
+
+  modeOption = [
+    {
+      name: '排版',
+      value: 'layout',
+    },
+    {
+      name: '內容編輯',
+      value: 'content',
+    },
+    {
+      name: '預覽',
+      value: 'preview',
+    },
+  ];
+  mode: 'layout' | 'content' | 'preview' = 'layout';
+  editLayout = signal<'layout' | 'content' | 'preview'>('layout');
   sortList = signal<componentSet[]>([]);
+  sortable: Sortable | null = null;
+
   resizingItem: componentSet | null = null;
   startY: number = 0;
   startX: number = 0;
   startWidth: number = 0;
   widthOptions = [12, 6, 4];
-
-  result = output<componentSet[]>();
 
   constructor() {
     this.onResizing = this.onResizing.bind(this);
@@ -42,14 +65,15 @@ export class DraggableComponent implements OnInit {
       this.componentList();
       untracked(() => {
         this.sortList.set(this.componentList());
+        this.result.emit(this.sortList());
       });
     });
   }
 
   ngOnInit() {
-    const sortable = new Sortable(this.sortableList.nativeElement, {
+    this.sortable = new Sortable(this.sortableList.nativeElement, {
       animation: 150,
-      handle: '.handle',
+      sort: true,
       group: {
         name: 'shared',
         pull: false,
@@ -120,5 +144,10 @@ export class DraggableComponent implements OnInit {
 
   onEditorHeightChange(item: componentSet, newHeight: number): void {
     item.height = newHeight + 6;
+  }
+
+  updateData(item: componentSet, event: any) {
+    item.data = event;
+    this.result.emit(this.sortList());
   }
 }

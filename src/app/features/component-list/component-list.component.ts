@@ -1,5 +1,7 @@
 import { Component, output } from '@angular/core';
 
+import { ButtonModule } from 'primeng/button';
+
 export interface componentBase {
   name: string;
   defaultWidth: number;
@@ -11,7 +13,7 @@ export interface componentSet extends componentBase {
   id?: number;
   width: number;
   height: number;
-  data?: any[];
+  data?: any;
 }
 
 @Component({
@@ -19,6 +21,7 @@ export interface componentSet extends componentBase {
   templateUrl: './component-list.component.html',
   styleUrl: './component-list.component.scss',
   standalone: true,
+  imports: [ButtonModule],
 })
 export class ComponentListComponent {
   add = output<componentSet>();
