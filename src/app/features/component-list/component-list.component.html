@@ -1,6 +1,6 @@
 <div class="text-xl">新增元件</div>
 <div class="flex flex-column gap-2">
   @for (item of componentList; track $index) {
-  <p-button [label]="item.name" (click)="addItem(item)" />
+  <p-button [label]="item.layoutType" (click)="addItem(item)" />
   }
 </div>

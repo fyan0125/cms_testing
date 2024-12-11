@@ -1,14 +1,25 @@
-<div class="flex align-items-center h-full w-full">
+<div class="flex align-items-center h-full w-full gap-2 px-2">
     @if (mode() === 'content') {
     <input pInputText type="text" fluid="true" [(ngModel)]="data.text" (input)="outputData.emit(data)">
+    <p-select [options]="classOptions" [(ngModel)]="data.class" optionLabel="name" optionValue="value"
+        (onChange)="outputData.emit(data)" />
+    <p-selectbutton [options]="alignOptions" [(ngModel)]="data.align" optionLabel="align" optionValue="align"
+        (onChange)="outputData.emit(data)">
+        <ng-template #item let-item>
+            <i [class]="item.icon"></i>
+        </ng-template>
+    </p-selectbutton>
     <p-colorpicker class="ml-2" [(ngModel)]="data.color" (onChange)="outputData.emit(data)" />
     }
     @else {
     @if (mode() === 'layout') {
-    <p-button icon="pi pi-trash" class="mr-2" (click)="remove.emit()"></p-button>
+    <p-button icon="pi pi-trash" class="align-self-start pt-2" (click)="remove.emit()"></p-button>
     }
     @if (data.text) {
-    <div class="text-xl font-bold" [style]="{'color': data.color}">{{ data.text }}</div>
+    <div class="w-full">
+        <div class="{{data.class}} font-bold text-{{data.align}}" [style]="{'color': data.color}">{{ data.text }}</div>
+    </div>
+
     }
     @else {
     請輸入文字
