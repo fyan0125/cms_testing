@@ -35,7 +35,7 @@ import { SelectButton } from 'primeng/selectbutton';
     SelectButton,
     TitleComponent,
     ImageComponent,
-    MarqueeComponent
+    MarqueeComponent,
   ],
 })
 export class DraggableComponent implements OnInit {

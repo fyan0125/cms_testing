@@ -1,7 +1,7 @@
 <div class="h-full flex align-items-start justify-content-center relative"
   [class]="data ? 'align-items-start': 'align-items-center'">
   @if (mode() === 'layout') {
-  <p-button icon="pi pi-trash" class="mr-2 absolute top-0 left-0" (click)="remove.emit()"></p-button>
+  <p-button icon="pi pi-trash" class="mr-2 absolute remove-btn" (click)="remove.emit()"></p-button>
   }
   @else if (mode() === 'content') {
   @if(!data){

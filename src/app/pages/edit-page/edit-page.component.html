@@ -1,0 +1,25 @@
+<div class="grid">
+    <div class="col-2">
+        <p-panel header="新增元件">
+            <app-component-list (add)="addItem($event)"></app-component-list>
+            <div class="flex gap-2 mt-5">
+                <p-button label="儲存頁面" [raised]="true" (click)="save()"></p-button>
+                <p-button label="放棄" severity="secondary" [raised]="true" (click)="cancel()"></p-button>
+            </div>
+        </p-panel>
+        {{componentList | json}}
+    </div>
+    <app-draggable class="col-10" [componentList]="componentList" (result)="componentList=$event"
+        (remove)="remove($event)"></app-draggable>
+</div>
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="editPageName" [style]="{ width: '25rem' }">
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">新增頁面</label>
+        <input pInputText id="username" class="flex-auto" autocomplete="off" [(ngModel)]="pageName" />
+    </div>
+    <div class="flex justify-end gap-2">
+        <p-button label="儲存" (click)="editPageName=false;save()" />
+        <p-button label="取消" severity="secondary" (click)="editPageName=false" />
+    </div>
+</p-dialog>
