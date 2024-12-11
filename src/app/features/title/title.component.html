@@ -1,15 +1,18 @@
 <div class="flex align-items-center h-full w-full">
+    @if (mode() === 'content') {
+    <input pInputText type="text" fluid="true" [(ngModel)]="data.text" (input)="outputData.emit(data)">
+    <p-colorpicker class="ml-2" [(ngModel)]="data.color" (onChange)="outputData.emit(data)" />
+    }
+    @else {
     @if (mode() === 'layout') {
     <p-button icon="pi pi-trash" class="mr-2" (click)="remove.emit()"></p-button>
-    <div class="text-xl" [style]="{'color': data.color}">{{ data.text || '(標題)' }}</div>
-    } @else if (mode() === 'content') {
-    <div>
-        標題: <input type="text" [(ngModel)]="data.text" (input)="outputData.emit(data)">
-        <p-colorpicker [(ngModel)]="data.color" (onChange)="outputData.emit(data)" />
-    </div>
-    } @else {
-    <div class="text-xl" [style]="{'color': data.color}">
-        {{ data.text || '(標題)' }}
-    </div>
+    }
+    @if (data.text) {
+    <div class="text-xl font-bold" [style]="{'color': data.color}">{{ data.text }}</div>
+    }
+    @else {
+    請輸入文字
+    }
+
     }
 </div>

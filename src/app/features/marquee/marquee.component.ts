@@ -9,9 +9,14 @@ import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 
-export interface title {
+export interface content {
   text: string;
   color: string;
+}
+
+export interface marquee {
+  time: number;
+  content: content[];
 }
 
 @Component({
@@ -24,17 +29,22 @@ export interface title {
 export class MarqueeComponent {
   mode = input.required<'layout' | 'content' | 'preview'>();
   remove = output();
-  outputData = output<title[]>();
+  outputData = output<marquee>();
   visible: boolean = false;
 
-  marqueeContents: string[] = [
-    'Your scrolling text goes here 111111111111111111111111111111111111111111111111111111111.',
-    'Your scrolling text goes here 222222222222222222222222222222222222222222222222222222222.',
-    'Your scrolling text goes here 333333333333333333333333333333333333333333333333333333333.'
-  ];
+  marqueeContents: content[] = [];
+  animationDuration: number = 20;
 
   showDialog() {
     this.visible = true;
+  }
+
+  addMarqueeContent() {
+    this.marqueeContents.push({ color: '#000000', text: '' });
+  }
+
+  removeMarqueeContent(index: number) {
+    this.marqueeContents.splice(index, 1);
   }
 
 }

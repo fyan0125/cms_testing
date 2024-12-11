@@ -8,17 +8,18 @@
 .marquee-container {
   display: flex;
   will-change: transform;
-  animation: slide 30s linear infinite; /* 整體容器的動畫 */
+  gap: 20rem;
+  animation: slide linear infinite; /* 整體容器的動畫 */
 }
 
 .marquee-slide {
   white-space: nowrap;
-  padding: 0 10rem;
+  // padding-right: 10rem;
 }
 
 @keyframes slide {
   0% {
-    transform: translateX(50%); /* 從右邊完全出場 */
+    transform: translateX(100%); /* 從右邊完全出場 */
   }
   100% {
     transform: translateX(-100%); /* 完全移動到左邊 */

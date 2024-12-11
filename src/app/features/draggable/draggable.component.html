@@ -10,7 +10,10 @@
     <app-title [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-title>
     }
     @else if (item.name === "文章") {
-    <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event)"></app-tinymce-editor>
+    <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event) " [mode]="mode"  (remove)="remove.emit(item)"></app-tinymce-editor>
+    }
+    @else if(item.name === '圖片'){
+    <app-image [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-image>
     }
     @else if (item.name === "跑馬燈") {
       <app-marquee [mode] = "mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-marquee>
@@ -24,8 +27,8 @@
     </div>
     }
 
-    // 調整大小
-    @if (mode=='layout') {
+    <!-- 調整大小 -->
+    @if (mode=='layout' && !item.autoHeight) {
     <div class="resize-handle" (mousedown)="onResizeStart($event, item)"></div>
     }
   </div>
