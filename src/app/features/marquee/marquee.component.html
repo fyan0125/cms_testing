@@ -1,0 +1,39 @@
+<div class="flex align-items-center h-full w-full p-2">
+  @if (mode() === 'layout') {
+  <p-button icon="pi pi-trash" class="mr-2" (click)="remove.emit()"></p-button>
+  <p> 跑馬燈 </p>
+  } @else if (mode() === 'content') {
+  <p-button class="mr-2" label="跑馬燈內容編輯" (click)="showDialog()"></p-button>
+  <p-dialog header="跑馬燈內容編輯" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <p-button icon="pi pi-trash" class="mr-2" label="新增"></p-button>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Username</label>
+        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+    </div>
+    <p-inputgroup>
+      <p-inputgroup-addon>
+        <p-colorpicker />
+      </p-inputgroup-addon>
+      <input pInputText placeholder="Vote" />
+      <p-inputgroup-addon>
+          <p-button icon="pi pi-trash" severity="danger" />
+      </p-inputgroup-addon>
+    </p-inputgroup>
+    <div class="flex justify-end gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <p-button label="Save" (click)="visible = false" />
+    </div>
+  </p-dialog>
+  } @else {
+    <div class="marquee">
+      <div class="marquee-container">
+        @for (content of marqueeContents; track $index) {
+          <div class="marquee-slide">
+            {{content}}
+          </div>
+        }
+      </div>
+
+    </div>
+  }
+</div>

@@ -12,6 +12,9 @@
     @else if (item.name === "文章") {
     <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event)"></app-tinymce-editor>
     }
+    @else if (item.name === "跑馬燈") {
+      <app-marquee [mode] = "mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-marquee>
+    }
     @else {
     <div class="flex justify-content-between" [style]="{'cursor': mode ? 'grab': 'default'}">
       <i class="pi pi-arrows-alt">{{item.id}}{{item.name}}</i>

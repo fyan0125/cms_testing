@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { componentSet } from '../../features/component-list/component-list.component';
 import { TinymceEditorComponent } from "../tinymce-editor/tinymce-editor.component";
 import { TitleComponent } from '../title/title.component';
+import { MarqueeComponent } from '../marquee/marquee.component';
 
 import { SelectButton } from 'primeng/selectbutton';
 
@@ -24,7 +25,7 @@ import { SelectButton } from 'primeng/selectbutton';
   templateUrl: './draggable.component.html',
   styleUrl: './draggable.component.scss',
   standalone: true,
-  imports: [CommonModule, TinymceEditorComponent, FormsModule, TitleComponent, SelectButton],
+  imports: [CommonModule, TinymceEditorComponent, FormsModule, TitleComponent, MarqueeComponent, SelectButton],
 })
 export class DraggableComponent implements OnInit {
   @ViewChild('sortableList', { static: true }) sortableList!: ElementRef;
