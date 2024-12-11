@@ -43,7 +43,7 @@ export class ComponentListComponent {
       layoutType: '文章',
       defaultWidth: 6,
       defaultHeight: 14,
-      autoHeight: true,
+      autoHeight: false,
     },
     {
       layoutType: '圖片',

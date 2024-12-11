@@ -1,4 +1,4 @@
-import { Component, Input, Output,EventEmitter, input, output, SimpleChanges } from '@angular/core';
+import { Component, Input, Output,EventEmitter, input, output, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { EditorComponent, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { componentSet } from '../component-list/component-list.component';
 import { ButtonModule } from 'primeng/button';
@@ -19,15 +19,17 @@ export class TinymceEditorComponent{
   @Output() contentChange = new EventEmitter<string>();
   mode = input.required<'layout' | 'content' | 'preview'>();
   private editorInstance: any;
-  private isEditorInitialized = false;
   private requiredRows: number = 14;
 
   remove = output();
+
 
   init: EditorComponent['init'] = {
       selector: '#editor',
       base_url: '/tinymce', 
       suffix: '.min',
+      language: 'zh_TW', 
+      language_url: '/assets/tinymce/langs/zh_TW.js',
       promotion: false,
       menubar: 'insert view format table tools help',
       plugins: 'autoresize media table image',
@@ -51,8 +53,10 @@ export class TinymceEditorComponent{
     },
   };
 
-  ngOnChanges(): void {
-    this.adjustRequiredRows();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['mode'] && !changes['mode'].isFirstChange()) {
+      this.adjustRequiredRows();
+    }
   }
 
   adjustRequiredRows(): void {
@@ -61,8 +65,8 @@ export class TinymceEditorComponent{
     if (this.mode() !== 'content') {
       adjustedRows = Math.max(1, this.requiredRows - 8); 
     }
-
     this.heightChange.emit(adjustedRows);
+
   }
 
   getRenderedContent(): string {
