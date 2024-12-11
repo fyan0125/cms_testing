@@ -18,7 +18,8 @@
       (outputData)="updateData(item, $event)"></app-image>
     }
     @else if (item.layoutType === "跑馬燈") {
-    <app-marquee [mode]="mode" [inputData]="item.data" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-marquee>
+    <app-marquee [mode]="mode" [inputData]="item.data" (remove)="remove.emit(item)"
+      (outputData)="updateData(item, $event)"></app-marquee>
     }
     @else {
     <div class="flex justify-content-between" [style]="{'cursor': mode ? 'grab': 'default'}">
@@ -30,8 +31,9 @@
     }
 
     <!-- 調整大小 -->
-    @if (mode=='layout' && !item.autoHeight) {
-    <div class="resize-handle" (mousedown)="onResizeStart($event, item)"></div>
+    @if (mode=='layout') {
+    <div class="resize-handle" [class]="item.heightEditable ? 'height-editable' : 'height-lock'"
+      (mousedown)="onResizeStart($event, item)"></div>
     }
   </div>
   }

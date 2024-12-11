@@ -124,11 +124,14 @@ export class DraggableComponent implements OnInit {
       const deltaY = event.clientY - this.startY;
       const deltaX = event.clientX - this.startX;
 
-      const gridHeight = 10;
-      const newRows = Math.max(
-        this.resizingItem.defaultHeight,
-        this.resizingItem.height + Math.round(deltaY / gridHeight)
-      );
+      if (this.resizingItem.heightEditable) {
+        const gridHeight = 10;
+        const newRows = Math.max(
+          this.resizingItem.defaultHeight,
+          this.resizingItem.height + Math.round(deltaY / gridHeight)
+        );
+        this.resizingItem.height = newRows;
+      }
 
       const gridWidth = window.innerWidth / 12;
       const newWidth = Math.round(this.startWidth + deltaX / gridWidth);
@@ -138,9 +141,6 @@ export class DraggableComponent implements OnInit {
       );
 
       this.resizingItem.width = closestWidth;
-
-      this.resizingItem.height = newRows;
-      this.startY = event.clientY;
     }
   }
 

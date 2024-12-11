@@ -6,7 +6,7 @@ export interface componentBase {
   layoutType: string;
   defaultWidth: number;
   defaultHeight: number;
-  autoHeight: boolean;
+  heightEditable: boolean;
 }
 
 export interface componentSet extends componentBase {
@@ -31,25 +31,25 @@ export class ComponentListComponent {
       layoutType: '跑馬燈',
       defaultWidth: 12,
       defaultHeight: 3,
-      autoHeight: false,
+      heightEditable: true,
     },
     {
       layoutType: '標題',
       defaultWidth: 12,
       defaultHeight: 3,
-      autoHeight: false,
+      heightEditable: true,
     },
     {
       layoutType: '文章',
       defaultWidth: 6,
       defaultHeight: 14,
-      autoHeight: true,
+      heightEditable: false,
     },
     {
       layoutType: '圖片',
       defaultWidth: 12,
       defaultHeight: 10,
-      autoHeight: false,
+      heightEditable: true,
     },
   ];
 

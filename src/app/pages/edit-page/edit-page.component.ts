@@ -39,6 +39,7 @@ export class EditPageComponent implements OnInit {
   nextId = 0;
   componentList: componentSet[] = [];
   result: string = '';
+  showComponent = false;
   private http = inject(HttpClient);
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);

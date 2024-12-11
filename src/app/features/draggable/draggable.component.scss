@@ -34,13 +34,20 @@ button.active {
       display: block;
     }
 
+    .height-editable {
+      cursor: nw-resize;
+    }
+
+    .height-lock {
+      cursor: e-resize;
+    }
+
     .resize-handle {
       position: absolute;
       bottom: 0;
       right: 0;
       width: 30px;
       height: 30px;
-      cursor: nw-resize;
       overflow: hidden;
       z-index: 10;
     }

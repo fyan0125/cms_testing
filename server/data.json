@@ -41,5 +41,65 @@
         }
       }
     ]
+  },
+  {
+    "id": "e1735b8a-441e-4920-b52d-984a93f6859e",
+    "name": "美國年底消費動能良好，金髮女孩經濟再現",
+    "structure": [
+      {
+        "id": 3,
+        "layoutType": "標題",
+        "defaultWidth": 12,
+        "defaultHeight": 3,
+        "heightEditable": true,
+        "width": 12,
+        "height": 3,
+        "data": {
+          "text": "美國年底消費動能良好，金髮女孩經濟再現",
+          "color": "#000000",
+          "class": "text-2xl",
+          "align": "left"
+        }
+      },
+      {
+        "id": 5,
+        "layoutType": "文章",
+        "defaultWidth": 6,
+        "defaultHeight": 14,
+        "heightEditable": false,
+        "width": 12,
+        "height": 14
+      },
+      {
+        "id": 9,
+        "layoutType": "圖片",
+        "defaultWidth": 12,
+        "defaultHeight": 10,
+        "heightEditable": true,
+        "width": 4,
+        "height": 10,
+        "data": "http://localhost:3000/uploads\\1733911392434-164313528-1_8c11bfd602247cb5a9598ddd3f8e5264.jpg"
+      },
+      {
+        "id": 10,
+        "layoutType": "圖片",
+        "defaultWidth": 12,
+        "defaultHeight": 10,
+        "heightEditable": true,
+        "width": 4,
+        "height": 10,
+        "data": "http://localhost:3000/uploads\\1733911395112-561769806-43b3810fea9abb9b3ba0005123c74cb0785c0ce5272ea-5f9wf3 1.jpg"
+      },
+      {
+        "id": 11,
+        "layoutType": "圖片",
+        "defaultWidth": 12,
+        "defaultHeight": 10,
+        "heightEditable": true,
+        "width": 4,
+        "height": 10,
+        "data": "http://localhost:3000/uploads\\1733911397486-378380986-chiikawa.jpg"
+      }
+    ]
   }
 ]

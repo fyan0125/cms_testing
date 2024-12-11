@@ -7,13 +7,15 @@
                 <p-button label="放棄" severity="secondary" [raised]="true" (click)="cancel()"></p-button>
             </div>
         </p-panel>
-        {{componentList | json}}
+        <div class="mt-5">
+            <p-button label="顯示資料結構" [raised]="true" (click)="showComponent=true"></p-button>
+        </div>
     </div>
     <app-draggable class="col-10" [componentList]="componentList" (result)="componentList=$event"
         (remove)="remove($event)"></app-draggable>
 </div>
 
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="editPageName" [style]="{ width: '25rem' }">
+<p-dialog [modal]="true" [(visible)]="editPageName" [style]="{ width: '25rem' }">
     <div class="flex items-center gap-4 mb-4">
         <label for="username" class="font-semibold w-24">新增頁面</label>
         <input pInputText id="username" class="flex-auto" autocomplete="off" [(ngModel)]="pageName" />
@@ -22,4 +24,9 @@
         <p-button label="儲存" (click)="editPageName=false;save()" />
         <p-button label="取消" severity="secondary" (click)="editPageName=false" />
     </div>
+</p-dialog>
+
+<p-dialog header="資料結構" [modal]="true" [(visible)]="showComponent" [style]="{ width: '25rem' }"
+    [dismissableMask]="true">
+    {{componentList | json}}
 </p-dialog>
