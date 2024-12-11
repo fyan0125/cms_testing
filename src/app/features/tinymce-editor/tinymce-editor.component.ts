@@ -27,19 +27,11 @@ export class TinymceEditorComponent{
       selector: '#editor',
       base_url: '/tinymce', 
       suffix: '.min',
-      relative_urls: false,
-      menubar: true,
-      plugins: 'autoresize advlist autolink link image lists charmap print preview',
-      toolbar: 
-        `undo redo | formatselect | bold italic | ` +
-        'alignleft aligncenter alignright alignjustify  | ' +
-        'bullist numlist outdent indent | removeformat | help',
-      paste_data_images: true, 
-      browser_spellcheck: true, 
+      promotion: false,
+      menubar: 'insert view format table tools help',
+      plugins: 'autoresize media table image',
+      toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor emoticons',
       branding: false,         
-      theme_advanced_resizing : false,
-      nowrap : false,
-      content_style: `html, body { overflow: hidden; }`,
       setup: (editor: any) => {
         this.editorInstance = editor;
 
@@ -56,9 +48,7 @@ export class TinymceEditorComponent{
           this.isEditorInitialized = true;
         });
 
-      editor.on('change', () => {
-        this.emitHeightChange();
-      });
+
     },
   };
 
@@ -85,6 +75,7 @@ export class TinymceEditorComponent{
 
     const gridRowHeight = 20; 
     const requiredRows = Math.ceil(contentHeight / gridRowHeight);
+    this.heightChange.emit(requiredRows -3);
   }
 
   getRenderedContent(): string {

@@ -151,7 +151,7 @@ export class DraggableComponent implements OnInit {
   }
 
   onEditorHeightChange(item: componentSet, newHeight: number): void {
-    item.height =  newHeight + 6;
+    item.height =  newHeight + 6;    
   }
 
   updateData(item: componentSet, event: any) {
