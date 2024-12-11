@@ -1,1 +1,45 @@
-[]
+[
+  {
+    "id": "fcbd5476-7173-4733-ac84-39afbf086c4b",
+    "name": "ㄚㄚㄚ",
+    "structure": [
+      {
+        "id": 0,
+        "layoutType": "跑馬燈",
+        "defaultWidth": 12,
+        "defaultHeight": 3,
+        "autoHeight": false,
+        "width": 12,
+        "height": 3,
+        "data": {
+          "duration": 20,
+          "content": [
+            {
+              "color": "#000000",
+              "text": "j8j 8j 8j8 j8 8j 8j8 j8 j "
+            },
+            {
+              "color": "#000000",
+              "text": "asaaa"
+            }
+          ]
+        }
+      },
+      {
+        "id": 1,
+        "layoutType": "標題",
+        "defaultWidth": 12,
+        "defaultHeight": 3,
+        "autoHeight": false,
+        "width": 12,
+        "height": 3,
+        "data": {
+          "text": "test",
+          "color": "#000000",
+          "class": "text-2xl",
+          "align": "center"
+        }
+      }
+    ]
+  }
+]

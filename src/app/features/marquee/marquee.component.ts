@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, OnInit, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -26,9 +26,10 @@ export interface Marquee {
   templateUrl: './marquee.component.html',
   styleUrl: './marquee.component.scss'
 })
-export class MarqueeComponent {
+export class MarqueeComponent implements OnInit {
   mode = input.required<'layout' | 'content' | 'preview'>();
   remove = output();
+  inputData = input.required<Marquee | null>();
   outputData = output<Marquee>();
   visible: boolean = false;
 
@@ -36,6 +37,13 @@ export class MarqueeComponent {
   data: Marquee = {
     duration: 20,
     content: []
+  }
+
+  ngOnInit(): void {
+    this.data = this.inputData() || {
+      duration: 20,
+      content: []
+    };
   }
 
   showDialog() {
