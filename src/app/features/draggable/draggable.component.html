@@ -1,23 +1,23 @@
-<p-selectbutton [options]="modeOption" [(ngModel)]="mode" [allowEmpty]="false" optionLabel="name" optionValue="value"
-  (onChange)="sortable?.option('sort', mode == 'layout');" />
+<p-selectbutton [options]="modeOption" [(ngModel)]="mode" [allowEmpty]="false" optionLabel="name" optionValue="value" />
 
 <div #sortableList class="custom-grid mt-5">
   @for (item of sortList(); track item.id) {
-  <div class="grid-item" [class]="mode!='preview' ? 'editing': ''"
+  <div [class.draggable]="mode == 'layout'" [class]="mode!='preview' ? 'editing': ''"
     [style]="{'grid-column': 'span ' + item.width, 'grid-row': 'span ' + item.height, 'cursor': mode == 'layout' ? 'grab': 'default'}">
 
-    @if (item.name=='標題') {
+    @if (item.layoutType=='標題') {
     <app-title [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-title>
     }
-    @else if (item.name === "文章") {
-    <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event) " [mode]="mode"  (remove)="remove.emit(item)"></app-tinymce-editor>
+    @else if (item.layoutType === "文章") {
+    <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event) " [mode]="mode"
+      (remove)="remove.emit(item)"></app-tinymce-editor>
     }
-    @else if(item.name === '圖片'){
+    @else if(item.layoutType === '圖片'){
     <app-image [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-image>
     }
     @else {
     <div class="flex justify-content-between" [style]="{'cursor': mode ? 'grab': 'default'}">
-      <i class="pi pi-arrows-alt">{{item.id}}{{item.name}}</i>
+      <i class="pi pi-arrows-alt">{{item.id}}{{item.layoutType}}</i>
       <button (click)="remove.emit(item)">移除</button>
     </div>
     <div class="preview w-full h-full">
