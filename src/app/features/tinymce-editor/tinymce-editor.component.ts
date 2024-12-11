@@ -20,6 +20,7 @@ export class TinymceEditorComponent{
   mode = input.required<'layout' | 'content' | 'preview'>();
   private editorInstance: any;
   private isEditorInitialized = false;
+  private requiredRows: number = 14;
 
   remove = output();
 
@@ -42,40 +43,26 @@ export class TinymceEditorComponent{
 
           const gridRowHeight = 20; 
           const requiredRows = Math.ceil(adjustedHeight / gridRowHeight);
-          if (this.isEditorInitialized) {
-            this.heightChange.emit(requiredRows);
-          }
-          this.isEditorInitialized = true;
+          this.requiredRows = requiredRows;
+          this.heightChange.emit(requiredRows);
         });
 
 
     },
   };
 
-  
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['mode']  && this.isEditorInitialized) {
-      this.emitHeightChange();
-    }
+  ngOnChanges(): void {
+    this.adjustRequiredRows();
   }
 
-  emitHeightChange(): void {
-    let contentHeight = 0;
+  adjustRequiredRows(): void {
+    let adjustedRows = this.requiredRows;
 
-    const renderedContent = this.getRenderedContent();
-    if(renderedContent === '(內容空白)')
-      return;
+    if (this.mode() !== 'content') {
+      adjustedRows = Math.max(1, this.requiredRows - 8); 
+    }
 
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = renderedContent;
-    document.body.appendChild(tempDiv);
-    contentHeight = tempDiv.scrollHeight + 1;
-    document.body.removeChild(tempDiv);
-
-    const gridRowHeight = 20; 
-    const requiredRows = Math.ceil(contentHeight / gridRowHeight);
-    this.heightChange.emit(requiredRows -3);
+    this.heightChange.emit(adjustedRows);
   }
 
   getRenderedContent(): string {
