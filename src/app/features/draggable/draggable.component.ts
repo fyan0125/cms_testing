@@ -1,7 +1,9 @@
 import {
+  ChangeDetectorRef,
   Component,
   effect,
   ElementRef,
+  inject,
   input,
   OnInit,
   output,
@@ -41,6 +43,7 @@ export class DraggableComponent implements OnInit {
   componentList = input.required<componentSet[]>();
   result = output<componentSet[]>();
   remove = output<componentSet>();
+  private cd = inject(ChangeDetectorRef);
 
   modeOption = [
     {
@@ -83,6 +86,7 @@ export class DraggableComponent implements OnInit {
   ngOnInit() {
     this.sortable = new Sortable(this.sortableList.nativeElement, {
       animation: 150,
+      draggable: '.draggable',
       sort: true,
       group: {
         name: 'shared',
@@ -154,6 +158,7 @@ export class DraggableComponent implements OnInit {
 
   onEditorHeightChange(item: componentSet, newHeight: number): void {
     item.height = newHeight + 6;
+    this.cd.markForCheck();
   }
 
   updateData(item: componentSet, event: any) {

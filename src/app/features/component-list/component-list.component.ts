@@ -3,7 +3,7 @@ import { Component, output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 export interface componentBase {
-  name: string;
+  layoutType: string;
   defaultWidth: number;
   defaultHeight: number;
   autoHeight: boolean;
@@ -28,31 +28,25 @@ export class ComponentListComponent {
 
   componentList: componentBase[] = [
     {
-      name: '跑馬燈',
+      layoutType: '跑馬燈',
       defaultWidth: 12,
       defaultHeight: 3,
       autoHeight: false,
     },
     {
-      name: '標題',
+      layoutType: '標題',
       defaultWidth: 12,
       defaultHeight: 3,
       autoHeight: false,
     },
     {
-      name: '副標題',
-      defaultWidth: 12,
-      defaultHeight: 3,
-      autoHeight: false,
-    },
-    {
-      name: '文章',
+      layoutType: '文章',
       defaultWidth: 6,
       defaultHeight: 14,
       autoHeight: true,
     },
     {
-      name: '圖片',
+      layoutType: '圖片',
       defaultWidth: 12,
       defaultHeight: 10,
       autoHeight: false,

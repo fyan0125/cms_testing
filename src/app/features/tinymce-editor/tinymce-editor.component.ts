@@ -13,13 +13,14 @@ import { ButtonModule } from 'primeng/button';
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ]
 })
-export class TinymceEditorComponent {
+export class TinymceEditorComponent{
   @Input() gridItem!: componentSet;
   @Output() heightChange = new EventEmitter<number>(); 
   @Output() contentChange = new EventEmitter<string>();
   mode = input.required<'layout' | 'content' | 'preview'>();
   private editorInstance: any;
-  
+  private isEditorInitialized = false;
+
   remove = output();
 
   init: EditorComponent['init'] = {
@@ -49,19 +50,22 @@ export class TinymceEditorComponent {
 
           const gridRowHeight = 20; 
           const requiredRows = Math.ceil(adjustedHeight / gridRowHeight);
-
-          this.heightChange.emit(requiredRows);
+          if (this.isEditorInitialized) {
+            this.heightChange.emit(requiredRows);
+          }
+          this.isEditorInitialized = true;
         });
 
-    editor.on('change', () => {
-      const content = editor.getContent();
-      this.contentChange.emit(content);
-    });
+      editor.on('change', () => {
+        this.emitHeightChange();
+      });
     },
   };
 
+  
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['mode']) {
+    if (changes['mode']  && this.isEditorInitialized) {
       this.emitHeightChange();
     }
   }
@@ -69,30 +73,32 @@ export class TinymceEditorComponent {
   emitHeightChange(): void {
     let contentHeight = 0;
 
-      const renderedContent = this.getRenderedContent();
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = renderedContent;
-      document.body.appendChild(tempDiv);
-      contentHeight = tempDiv.scrollHeight + 1;
-      document.body.removeChild(tempDiv);
+    const renderedContent = this.getRenderedContent();
+    if(renderedContent === '(內容空白)')
+      return;
+
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = renderedContent;
+    document.body.appendChild(tempDiv);
+    contentHeight = tempDiv.scrollHeight + 1;
+    document.body.removeChild(tempDiv);
 
     const gridRowHeight = 20; 
     const requiredRows = Math.ceil(contentHeight / gridRowHeight);
-
-    this.heightChange.emit(requiredRows);
   }
 
   getRenderedContent(): string {
     if (this.editorInstance) {
-      const iframe = this.editorInstance.iframeElement; 
+      const iframe = this.editorInstance.iframeElement;
       if (iframe) {
         const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
         if (iframeDoc) {
-          return iframeDoc.body.innerHTML; 
+          const content = iframeDoc.body.innerHTML.trim();          
+          return content !=='<p><br data-mce-bogus="1"></p>' ? content : '(內容空白)';
         }
       }
     }
-    return ''; 
+    return '(內容空白)';
   }
 
 
