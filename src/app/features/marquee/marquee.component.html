@@ -1,0 +1,46 @@
+<div class="flex align-items-center h-full w-full p-2">
+  @if (mode() === 'layout') {
+  <p-button icon="pi pi-trash" class="mr-2" (click)="remove.emit()"></p-button>
+  <p> 跑馬燈 </p>
+  } @else if (mode() === 'content') {
+  <p-button class="mr-2" label="跑馬燈內容編輯" (click)="showDialog()"></p-button>
+  <p-dialog header="跑馬燈編輯" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <div class="flex justify-content-between">
+      <p-inputgroup class="w-4">
+        <p-inputgroup-addon>整組時間</p-inputgroup-addon>
+        <input pInputText type="number" [(ngModel)]="data.duration" placeholder="Price" (input)="outputData.emit(data)"/>
+        <p-inputgroup-addon>秒</p-inputgroup-addon>
+      </p-inputgroup>
+
+      <div>
+        <p-button icon="pi pi-plus" label="新增" (click)="addMarqueeContent()"></p-button>
+      </div>
+    </div>
+
+    <div class="mt-3 h-30rem">
+      @for (content of data.content; track $index) {
+        <div>
+          <p-inputgroup class="mt-2">
+            <p-inputgroup-addon>
+              <p-colorpicker [(ngModel)]="content.color"/>
+            </p-inputgroup-addon>
+            <input pInputText placeholder="......" [(ngModel)]="content.text"/>
+            <p-button icon="pi pi-trash" severity="danger" (click)="removeMarqueeContent($index)"/>
+          </p-inputgroup>
+        </div>
+        }
+    </div>
+
+  </p-dialog>
+  } @else {
+    <div class="marquee w-full">
+      <div class="marquee-container w-full" [style.animation-duration]="data.duration + 's'">
+        @for (content of data.content; track $index) {
+          <div class="marquee-slide" [style]="{'color': content.color}">
+            {{content.text}}
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

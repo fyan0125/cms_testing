@@ -1,8 +1,0 @@
-<div class="grid">
-    <div class="col-2">
-        <app-component-list class="col-2" (add)="addItem($event)"></app-component-list>
-        <pre>{{ componentList | json }}</pre>
-    </div>
-    <app-draggable class="col-10" [componentList]="componentList" (result)="componentList=$event"
-        (remove)="remove($event)"></app-draggable>
-</div>

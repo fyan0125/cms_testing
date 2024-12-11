@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { componentSet } from '../../features/component-list/component-list.component';
 import { TinymceEditorComponent } from '../tinymce-editor/tinymce-editor.component';
 import { TitleComponent } from '../title/title.component';
+import { MarqueeComponent } from '../marquee/marquee.component';
 import { ImageComponent } from '../image/image.component';
 
 import { SelectButton } from 'primeng/selectbutton';
@@ -34,6 +35,7 @@ import { SelectButton } from 'primeng/selectbutton';
     SelectButton,
     TitleComponent,
     ImageComponent,
+    MarqueeComponent,
   ],
 })
 export class DraggableComponent implements OnInit {

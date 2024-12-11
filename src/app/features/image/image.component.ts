@@ -1,5 +1,5 @@
-import { Component, inject, input, output } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, inject, input, OnInit, output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { ButtonModule } from 'primeng/button';
 import { FileUpload } from 'primeng/fileupload';
@@ -9,10 +9,11 @@ import { FileUpload } from 'primeng/fileupload';
   templateUrl: './image.component.html',
   styleUrl: './image.component.scss',
   standalone: true,
-  imports: [HttpClientModule, ButtonModule, FileUpload],
+  imports: [ButtonModule, FileUpload],
 })
-export class ImageComponent {
+export class ImageComponent implements OnInit {
   mode = input.required<'layout' | 'content' | 'preview'>();
+  inputData = input.required<string | null>();
   remove = output();
   outputData = output<string>();
 
@@ -20,6 +21,10 @@ export class ImageComponent {
   uploadedFileName: string | null = null;
 
   private http = inject(HttpClient);
+
+  ngOnInit(): void {
+    this.data = this.inputData();
+  }
 
   onUpload(event: any) {
     const response = event.originalEvent.body;
@@ -44,8 +49,12 @@ export class ImageComponent {
       return;
     }
 
-    const deleteUrl = `http://localhost:3000/delete/${this.uploadedFileName}`;
-    this.http.delete(deleteUrl).subscribe({
+    const deleteUrl = 'http://localhost:3000/deleteFile/';
+    const request = {
+      filename: this.uploadedFileName,
+    };
+
+    this.http.post(deleteUrl, request).subscribe({
       next: () => {
         console.log('Image deleted successfully.');
         this.data = '';

@@ -6,14 +6,19 @@
     [style]="{'grid-column': 'span ' + item.width, 'grid-row': 'span ' + item.height, 'cursor': mode == 'layout' ? 'grab': 'default'}">
 
     @if (item.layoutType=='標題') {
-    <app-title [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-title>
+    <app-title [mode]="mode" [inputData]="item.data" (remove)="remove.emit(item)"
+      (outputData)="updateData(item, $event)"></app-title>
     }
     @else if (item.layoutType === "文章") {
     <app-tinymce-editor [gridItem]="item" (heightChange)="onEditorHeightChange(item, $event) " [mode]="mode"
       (remove)="remove.emit(item)"></app-tinymce-editor>
     }
     @else if(item.layoutType === '圖片'){
-    <app-image [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-image>
+    <app-image [mode]="mode" [inputData]="item.data" (remove)="remove.emit(item)"
+      (outputData)="updateData(item, $event)"></app-image>
+    }
+    @else if (item.layoutType === "跑馬燈") {
+    <app-marquee [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-marquee>
     }
     @else {
     <div class="flex justify-content-between" [style]="{'cursor': mode ? 'grab': 'default'}">

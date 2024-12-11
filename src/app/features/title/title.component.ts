@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { InputTextModule } from 'primeng/inputtext';
@@ -28,8 +28,9 @@ export interface title {
     SelectButton,
   ],
 })
-export class TitleComponent {
+export class TitleComponent implements OnInit {
   mode = input.required<'layout' | 'content' | 'preview'>();
+  inputData = input.required<title | null>();
   remove = output();
   outputData = output<title>();
 
@@ -50,4 +51,13 @@ export class TitleComponent {
     class: 'text-2xl',
     align: 'left',
   };
+
+  ngOnInit(): void {
+    this.data = this.inputData() || {
+      text: '',
+      color: '#000000',
+      class: 'text-2xl',
+      align: 'left',
+    };
+  }
 }
