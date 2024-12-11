@@ -12,9 +12,12 @@
   animation: slide linear infinite; /* 整體容器的動畫 */
 }
 
+.marquee-container:hover {
+  animation-play-state: paused;
+}
+
 .marquee-slide {
   white-space: nowrap;
-  // padding-right: 10rem;
 }
 
 @keyframes slide {
