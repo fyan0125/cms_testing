@@ -15,7 +15,7 @@
     @else if(item.layoutType === '圖片'){
     <app-image [mode]="mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-image>
     }
-    @else if (item.name === "跑馬燈") {
+    @else if (item.layoutType === "跑馬燈") {
       <app-marquee [mode] = "mode" (remove)="remove.emit(item)" (outputData)="updateData(item, $event)"></app-marquee>
     }
     @else {

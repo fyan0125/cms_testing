@@ -9,14 +9,14 @@ import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 
-export interface content {
+export interface Content {
   text: string;
   color: string;
 }
 
-export interface marquee {
-  time: number;
-  content: content[];
+export interface Marquee {
+  duration: number;
+  content: Content[];
 }
 
 @Component({
@@ -29,22 +29,26 @@ export interface marquee {
 export class MarqueeComponent {
   mode = input.required<'layout' | 'content' | 'preview'>();
   remove = output();
-  outputData = output<marquee>();
+  outputData = output<Marquee>();
   visible: boolean = false;
 
-  marqueeContents: content[] = [];
-  animationDuration: number = 20;
+  marqueeContents: Content[] = [];
+  data: Marquee = {
+    duration: 20,
+    content: []
+  }
 
   showDialog() {
     this.visible = true;
+    this.outputData.emit(this.data)
   }
 
   addMarqueeContent() {
-    this.marqueeContents.push({ color: '#000000', text: '' });
+    this.data.content.push({ color: '#000000', text: '' });
   }
 
   removeMarqueeContent(index: number) {
-    this.marqueeContents.splice(index, 1);
+    this.data.content.splice(index, 1);
   }
 
 }
