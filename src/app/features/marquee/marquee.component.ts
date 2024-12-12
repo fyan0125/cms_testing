@@ -8,10 +8,13 @@ import { Dialog } from 'primeng/dialog';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabel } from 'primeng/floatlabel';
+import { Popover } from 'primeng/popover';
 
 export interface Content {
   text: string;
   color: string;
+  link: string;
 }
 
 export interface Marquee {
@@ -22,7 +25,7 @@ export interface Marquee {
 @Component({
   selector: 'app-marquee',
   standalone: true,
-  imports: [CommonModule,FormsModule, ButtonModule, ColorPicker, Dialog, InputGroup, InputGroupAddonModule, InputTextModule],
+  imports: [CommonModule,FormsModule, ButtonModule, ColorPicker, Dialog, InputGroup, InputGroupAddonModule, InputTextModule, FloatLabel, Popover],
   templateUrl: './marquee.component.html',
   styleUrl: './marquee.component.scss'
 })
@@ -42,7 +45,7 @@ export class MarqueeComponent implements OnInit {
   ngOnInit(): void {
     this.data = this.inputData() || {
       duration: 20,
-      content: []
+      content: [],
     };
   }
 
@@ -52,11 +55,16 @@ export class MarqueeComponent implements OnInit {
   }
 
   addMarqueeContent() {
-    this.data.content.push({ color: '#000000', text: '' });
+    this.data.content.push({ color: '#000000', text: '', link: ''});
   }
 
   removeMarqueeContent(index: number) {
     this.data.content.splice(index, 1);
   }
 
+  goLink(link: string){
+    if (link && link.trim() !== '') {
+      window.open(link, '_blank');
+    }
+  }
 }
