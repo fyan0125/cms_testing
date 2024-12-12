@@ -2,9 +2,8 @@
 
 <div #sortableList class="custom-grid mt-5">
   @for (item of sortList(); track item.id) {
-  <div [class.draggable]="mode == 'layout'" [class]="mode!='preview' ? 'editing': ''"
-    [style]="{'grid-column': 'span ' + item.width, 'grid-row': 'span ' + item.height, 'cursor': mode == 'layout' ? 'grab': 'default'}">
-
+  <div [ngClass]="{'editing': mode!='preview', 'draggable': mode == 'layout' }" class="column-{{item.width}}"
+    [style]="{'grid-row': 'span ' + item.height, 'cursor': mode == 'layout' ? 'grab': 'default'}">
     @if (item.layoutType=='標題') {
     <app-title [mode]="mode" [inputData]="item.data" (remove)="remove.emit(item)"
       (outputData)="updateData(item, $event)"></app-title>
@@ -20,14 +19,6 @@
     @else if (item.layoutType === "跑馬燈") {
     <app-marquee [mode]="mode" [inputData]="item.data" (remove)="remove.emit(item)"
       (outputData)="updateData(item, $event)"></app-marquee>
-    }
-    @else {
-    <div class="flex justify-content-between" [style]="{'cursor': mode ? 'grab': 'default'}">
-      <i class="pi pi-arrows-alt">{{item.id}}{{item.layoutType}}</i>
-      <button (click)="remove.emit(item)">移除</button>
-    </div>
-    <div class="preview w-full h-full">
-    </div>
     }
 
     <!-- 調整大小 -->

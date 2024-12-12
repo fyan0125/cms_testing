@@ -3,9 +3,9 @@ button.active {
 }
 .custom-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
   grid-gap: 10px;
   grid-auto-rows: 10px;
+  grid-template-columns: repeat(12, 1fr);
 
   div {
     position: relative;
@@ -51,5 +51,57 @@ button.active {
       overflow: hidden;
       z-index: 10;
     }
+  }
+}
+
+.column-12 {
+  grid-column: span 12;
+}
+
+.column-8 {
+  grid-column: span 12;
+}
+
+.column-6 {
+  grid-column: span 12;
+}
+
+.column-4 {
+  grid-column: span 12;
+}
+
+@media screen and (min-width: 768px) {
+  .column-12 {
+    grid-column: span 12;
+  }
+
+  .column-8 {
+    grid-column: span 12;
+  }
+  
+  .column-6 {
+    grid-column: span 6;
+  }
+  
+  .column-4 {
+    grid-column: span 6;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .column-12 {
+    grid-column: span 12;
+  }
+
+  .column-8 {
+    grid-column: span 8;
+  }
+  
+  .column-6 {
+    grid-column: span 6;
+  }
+  
+  .column-4 {
+    grid-column: span 4;
   }
 }

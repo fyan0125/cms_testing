@@ -67,8 +67,9 @@ export class DraggableComponent implements OnInit {
   resizingItem: componentSet | null = null;
   startY: number = 0;
   startX: number = 0;
+  startHeight: number = 0;
   startWidth: number = 0;
-  widthOptions = [12, 6, 4];
+  widthOptions = [12, 8, 6, 4];
 
   constructor() {
     this.onResizing = this.onResizing.bind(this);
@@ -107,6 +108,7 @@ export class DraggableComponent implements OnInit {
     this.resizingItem = item;
     this.startY = event.clientY;
     this.startX = event.clientX;
+    this.startHeight = item.height;
     this.startWidth = item.width;
 
     const gridItem = (event.target as HTMLElement).closest('.grid-item');
@@ -125,10 +127,10 @@ export class DraggableComponent implements OnInit {
       const deltaX = event.clientX - this.startX;
 
       if (this.resizingItem.heightEditable) {
-        const gridHeight = 10;
+        const gridHeight = 20;
         const newRows = Math.max(
           this.resizingItem.defaultHeight,
-          this.resizingItem.height + Math.round(deltaY / gridHeight)
+          this.startHeight + Math.round(deltaY / gridHeight)
         );
         this.resizingItem.height = newRows;
       }
@@ -158,10 +160,9 @@ export class DraggableComponent implements OnInit {
 
   onEditorHeightChange(item: componentSet, newHeight: number): void {
     setTimeout(() => {
-    item.height = newHeight + 6;
-    this.cd.markForCheck();
-   }, 0);
-
+      item.height = newHeight + 6;
+      this.cd.markForCheck();
+    }, 0);
   }
 
   updateData(item: componentSet, event: any) {

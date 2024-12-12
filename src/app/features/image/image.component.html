@@ -1,24 +1,37 @@
 <div class="h-full flex align-items-start justify-content-center relative"
-  [class]="data ? 'align-items-start': 'align-items-center'">
+  [class]="data.src ? 'align-items-start': 'align-items-center'">
   @if (mode() === 'layout') {
-  <p-button icon="pi pi-trash" class="mr-2 absolute remove-btn" (click)="remove.emit()"></p-button>
+  <!-- 排版 -->
+  <div class="absolute top-0 left-0 p-2">
+    <p-button icon="pi pi-trash" class="mr-2" (click)="remove.emit()"></p-button>
+  </div>
+  @if ( data.src){
+  <img [src]="data.src" alt="Uploaded Image" class="max-h-full max-w-full" />
+  }@else {
+  請上傳圖片
+  }
   }
   @else if (mode() === 'content') {
-  @if(!data){
+  <!-- 內容編輯 -->
+  @if(!data.src){
+
   <p-fileupload mode="basic" name="file" chooseIcon="pi pi-upload" url="http://localhost:3000/upload" accept="image/*"
     maxFileSize="1000000" (onUpload)="onUpload($event)" (onError)="onError($event)" (onClear)="onClear()" [auto]="true"
     chooseLabel="Browse" />
   }@else {
-  <img [src]="data" alt="Uploaded Image" class="max-h-full max-w-full" />
-  <p-button icon="pi pi-times" variant="text" severity="secondary" class="mr-2 absolute top-0 right-0"
-    (click)="removeImage()"></p-button>
+  <div class="absolute top-0 left-0 p-2 flex align-items-center gap-2">
+    <p-button icon="pi pi-times" variant="text" severity="secondary" (click)="removeImage()"></p-button>
+    <p-button icon="pi pi-link" variant="text" (click)="op.toggle($event)">
+      <p-popover #op>
+        嵌入連結: <input type="text" pInputText [(ngModel)]="data.link" />
+      </p-popover>
+    </p-button>
+  </div>
+  <img [src]="data.src" alt="Uploaded Image" class="max-h-full max-w-full" />
   }
-
   }
-
-  @if (mode() !== 'content' && data){
-  <img [src]="data" alt="Uploaded Image" class="max-h-full max-w-full" />
-  }@else if(mode() !== 'content') {
-  請上傳圖片
+  @else if(mode() == 'preview' && data.src){
+  <img [src]="data.src" alt="Uploaded Image" class="max-h-full max-w-full" [class]="{'cursor-pointer': data.link}"
+    (click)="link()" />
   }
 </div>
