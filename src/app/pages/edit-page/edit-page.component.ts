@@ -37,6 +37,7 @@ export class EditPageComponent implements OnInit {
   pageName: string | null = null;
   editPageName = false;
   nextId = 0;
+  page: page = {} as page;
   componentList: componentSet[] = [];
   result: string = '';
   showComponent = false;
@@ -45,7 +46,7 @@ export class EditPageComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params) => {
+    this.activatedRoute.firstChild?.paramMap.subscribe((params) => {
       this.pageId.set(params.get('id')); // 如果 URL 沒有帶 id，這裡會是 null
       if (this.pageId()) {
         this.getData();
@@ -68,7 +69,8 @@ export class EditPageComponent implements OnInit {
 
     this.http.get<page>(url).subscribe({
       next: (data: page) => {
-        this.componentList = data.structure;
+        this.page = data;
+        this.componentList = data.structure || [];
         this.pageName = data.name;
         const maxId = this.componentList.reduce(
           (max, component) =>
@@ -92,8 +94,7 @@ export class EditPageComponent implements OnInit {
 
     const url = 'http://localhost:3000/editPage/';
     const request = {
-      id: this.pageId(),
-      name: this.pageName,
+      ...this.page,
       structure: this.componentList,
     };
 
@@ -110,32 +111,36 @@ export class EditPageComponent implements OnInit {
   }
 
   cancel() {
-    const deleteRequests = this.componentList
-      .filter((component) => component.layoutType == '圖片')
-      .map((img) => {
-        if (img.data) {
-          const normalizedPath = img.data.replace(/\\/g, '/');
-          const fileName = normalizedPath.split('/').pop();
+    if (this.pageId()) {
+      this.router.navigate(['']);
+    } else {
+      const deleteRequests = this.componentList
+        .filter((component) => component.layoutType == '圖片')
+        .map((img) => {
+          if (img.data.src) {
+            const normalizedPath = img.data.src.replace(/\\/g, '/');
+            const fileName = normalizedPath.split('/').pop();
 
-          const deleteUrl = 'http://localhost:3000/deleteFile/';
-          const request = {
-            filename: fileName,
-          };
+            const deleteUrl = 'http://localhost:3000/deleteFile/';
+            const request = {
+              filename: fileName,
+            };
 
-          return this.http.post(deleteUrl, request).toPromise();
-        }
-        return null;
-      })
-      .filter((request) => request !== undefined);
+            return this.http.post(deleteUrl, request).toPromise();
+          }
+          return null;
+        })
+        .filter((request) => request !== undefined);
 
-    Promise.all(deleteRequests)
-      .then(() => {
-        this.componentList = []; // 清空 componentList
-        this.router.navigate(['']);
-      })
-      .catch((err) => {
-        console.error('Failed to delete some images:', err);
-        alert('Failed to delete some images!');
-      });
+      Promise.all(deleteRequests)
+        .then(() => {
+          this.componentList = []; // 清空 componentList
+          this.router.navigate(['']);
+        })
+        .catch((err) => {
+          console.error('Failed to delete some images:', err);
+          alert('Failed to delete some images!');
+        });
+    }
   }
 }

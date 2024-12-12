@@ -69,9 +69,9 @@ app.post('/deleteFile', (req, res) => {
 });
 
 app.post('/editPage', (req, res) => {
-  const { id, name, structure } = req.body;
+  const { id, name, type, startdt, enddt } = req.body;
 
-  if (!name || !structure) {
+  if (!name || !type || !startdt || !enddt) {
     return res.status(400).send({ message: 'Invalid payload!' });
   }
 
@@ -92,13 +92,13 @@ app.post('/editPage', (req, res) => {
     if (id) {
       const existingIndex = jsonData.findIndex((item) => item.id === id);
       if (existingIndex !== -1) {
-        jsonData[existingIndex] = { id, name, structure };
+        jsonData[existingIndex] = {...req.body, status: '尚未上架'};
       } else {
         return res.status(404).send({ message: 'Record not found for update!' });
       }
     } else {
       const newId = uuidv4();
-      const newRecord = { id: newId, name, structure };
+      const newRecord = { id: newId, status: '尚未上架', ...req.body };
       jsonData.push(newRecord);
     }
 

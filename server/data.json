@@ -1,64 +1,11 @@
 [
   {
-    "id": "fcbd5476-7173-4733-ac84-39afbf086c4b",
-    "name": "ㄚㄚㄚ",
-    "structure": [
-      {
-        "id": 0,
-        "layoutType": "跑馬燈",
-        "defaultWidth": 12,
-        "defaultHeight": 3,
-        "autoHeight": false,
-        "width": 12,
-        "height": 3,
-        "data": {
-          "duration": 20,
-          "content": [
-            {
-              "color": "#000000",
-              "text": "j8j 8j 8j8 j8 8j 8j8 j8 j "
-            },
-            {
-              "color": "#000000",
-              "text": "asaaa"
-            }
-          ]
-        }
-      },
-      {
-        "id": 1,
-        "layoutType": "標題",
-        "defaultWidth": 12,
-        "defaultHeight": 3,
-        "autoHeight": false,
-        "width": 12,
-        "height": 3,
-        "data": {
-          "text": "test",
-          "color": "#000000",
-          "class": "text-2xl",
-          "align": "center"
-        }
-      }
-    ]
-  },
-  {
-    "id": "9523331a-e87c-45df-9c70-c8f7eb101b8b",
-    "name": "測試圖片連結",
-    "structure": [
-      {
-        "id": 0,
-        "layoutType": "圖片",
-        "defaultWidth": 12,
-        "defaultHeight": 10,
-        "heightEditable": true,
-        "width": 12,
-        "height": 10,
-        "data": {
-          "src": "http://localhost:3000/uploads\\1733986724774-697130891-43b3810fea9abb9b3ba0005123c74cb0785c0ce5272ea-5f9wf3 1.jpg",
-          "link": "https://primeflex.org/cursor"
-        }
-      }
-    ]
+    "id": "de4cb122-f3d3-4dfa-875c-f7fe44c49ced",
+    "status": "尚未上架",
+    "name": "測試",
+    "type": "ad",
+    "startdt": "2024/12/03 04:57 PM",
+    "enddt": "2024/12/31 04:57 PM",
+    "structure": []
   }
 ]

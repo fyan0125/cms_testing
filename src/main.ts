@@ -1,6 +1,41 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient } from '@angular/common/http';
+import { providePrimeNG } from 'primeng/config';
+import { MyPreset } from '../public/mytheme';
+import { Routes } from '@angular/router';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+import { EditPageComponent } from './app/pages/edit-page/edit-page.component';
+import { ManageComponent } from './app/pages/manage/manage.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ManageComponent,
+  },
+  {
+    path: 'edit',
+    component: EditPageComponent,
+    children: [
+      {
+        path: ':id',
+        component: EditPageComponent,
+      },
+    ],
+  },
+];
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: MyPreset,
+      },
+    }),
+    provideRouter(routes),
+    provideHttpClient(),
+  ],
+}).catch((err) => console.error(err));
