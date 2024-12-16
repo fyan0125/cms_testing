@@ -1,18 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
-import { componentSet } from '../../features/component-list/component-list.component';
+import { componentSet } from '../../features/edit-page/component-list/component-list.component';
+import { SidemenuComponent } from '../../features/common/sidemenu/sidemenu.component';
 
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { DatePicker } from 'primeng/datepicker';
-import { CommonModule } from '@angular/common';
 
 export interface page {
   id: string;
@@ -31,6 +32,7 @@ export interface page {
   standalone: true,
   imports: [
     CommonModule,
+    SidemenuComponent,
     FormsModule,
     TableModule,
     ButtonModule,

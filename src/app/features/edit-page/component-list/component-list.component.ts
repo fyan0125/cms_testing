@@ -51,6 +51,12 @@ export class ComponentListComponent {
       defaultHeight: 10,
       heightEditable: true,
     },
+    // {
+    //   layoutType: '附件',
+    //   defaultWidth: 4,
+    //   defaultHeight: 3,
+    //   heightEditable: true,
+    // },
   ];
 
   addItem(item: componentBase) {

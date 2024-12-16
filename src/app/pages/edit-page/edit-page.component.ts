@@ -6,8 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {
   componentSet,
   ComponentListComponent,
-} from '../../features/component-list/component-list.component';
-import { DraggableComponent } from '../../features/draggable/draggable.component';
+} from '../../features/edit-page/component-list/component-list.component';
+import { DraggableComponent } from '../../features/edit-page/draggable/draggable.component';
 import { page } from '../manage/manage.component';
 
 import { ButtonModule } from 'primeng/button';
@@ -34,8 +34,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class EditPageComponent implements OnInit {
   pageId = signal<string | null>(null);
-  pageName: string | null = null;
-  editPageName = false;
   nextId = 0;
   page: page = {} as page;
   componentList: componentSet[] = [];
@@ -46,7 +44,7 @@ export class EditPageComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.activatedRoute.firstChild?.paramMap.subscribe((params) => {
+    this.activatedRoute.paramMap.subscribe((params) => {
       this.pageId.set(params.get('id')); // 如果 URL 沒有帶 id，這裡會是 null
       if (this.pageId()) {
         this.getData();
@@ -71,7 +69,6 @@ export class EditPageComponent implements OnInit {
       next: (data: page) => {
         this.page = data;
         this.componentList = data.structure || [];
-        this.pageName = data.name;
         const maxId = this.componentList.reduce(
           (max, component) =>
             (component.id as number) > max ? (component.id as number) : max,
@@ -87,11 +84,6 @@ export class EditPageComponent implements OnInit {
   }
 
   save() {
-    if (!this.pageName) {
-      this.editPageName = true;
-      return;
-    }
-
     const url = 'http://localhost:3000/editPage/';
     const request = {
       ...this.page,
@@ -101,7 +93,7 @@ export class EditPageComponent implements OnInit {
     this.http.post(url, request).subscribe({
       next: () => {
         console.log('Save data successfully.');
-        this.router.navigate(['']);
+        this.router.navigate(['manage']);
       },
       error: (err) => {
         console.error('Failed to save data:', err);
@@ -112,7 +104,7 @@ export class EditPageComponent implements OnInit {
 
   cancel() {
     if (this.pageId()) {
-      this.router.navigate(['']);
+      this.router.navigate(['manage']);
     } else {
       const deleteRequests = this.componentList
         .filter((component) => component.layoutType == '圖片')
@@ -135,7 +127,7 @@ export class EditPageComponent implements OnInit {
       Promise.all(deleteRequests)
         .then(() => {
           this.componentList = []; // 清空 componentList
-          this.router.navigate(['']);
+          this.router.navigate(['/manage']);
         })
         .catch((err) => {
           console.error('Failed to delete some images:', err);

@@ -15,13 +15,14 @@ import { CommonModule } from '@angular/common';
 import Sortable from 'sortablejs';
 import { FormsModule } from '@angular/forms';
 
-import { componentSet } from '../../features/component-list/component-list.component';
+import { componentSet } from '../component-list/component-list.component';
 import { TinymceEditorComponent } from '../tinymce-editor/tinymce-editor.component';
 import { TitleComponent } from '../title/title.component';
 import { MarqueeComponent } from '../marquee/marquee.component';
 import { ImageComponent } from '../image/image.component';
 
 import { SelectButton } from 'primeng/selectbutton';
+import { FileUploadComponent } from '../file-upload/file-upload.component';
 
 @Component({
   selector: 'app-draggable',
@@ -36,6 +37,7 @@ import { SelectButton } from 'primeng/selectbutton';
     TitleComponent,
     ImageComponent,
     MarqueeComponent,
+    FileUploadComponent
   ],
 })
 export class DraggableComponent implements OnInit {

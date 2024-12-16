@@ -1,0 +1,15 @@
+@if (mode() == 'layout') {
+
+}
+@else if (mode() == 'content') {
+<div class="h-full flex gap-2 align-items-center justify-content-center">
+  <p-fileupload #fu class="w-full h-full" multiple="false" chooseIcon="pi pi-upload" name="demo[]"
+    showCancelButton="false" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)">
+    <ng-template #content>
+      <!-- <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+      </ul> -->
+    </ng-template>
+  </p-fileupload>
+</div>
+}
